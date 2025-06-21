@@ -1,4 +1,9 @@
-# � Christopher Costa - Projetos
+# Christopher Costa - Projetos
+
+## Pitch Video
+[Pitch Video](#]
+
+## Projetos
 
 Repositórios dos meus principais projetos de desenvolvimento.
 
