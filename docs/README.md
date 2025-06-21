@@ -1,7 +1,11 @@
 # Christopher Costa - Projetos
 
 ## Pitch Video
-[Pitch Video](#]
+
+[![Pitch Video](https://i.imgur.com/8m2qUhJ.png)](https://youtu.be/We3R_W0Npxw)
+
+
+[Pitch Video](https://youtu.be/We3R_W0Npxw)
 
 ## Projetos
 
