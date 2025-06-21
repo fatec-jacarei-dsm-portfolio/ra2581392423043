@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christopher Costa - Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-primary-400: oklch(0.75 0.25 240);
+            --color-primary-500: oklch(0.65 0.3 240);
+            --color-primary-600: oklch(0.55 0.35 240);
+            --spacing: 0.25rem;
+            --shadow-glass: 0 8px 32px -12px rgba(0, 0, 0, 0.25);
+            --duration-normal: 300ms;
+            --ease-out: cubic-bezier(0, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }        body {
+            font-family: "Inter", "JetBrains Mono", system-ui, monospace;
+            background: oklch(0.09 0.015 247.86);
+            color: white;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            opacity: 0.5;
+            pointer-events: none;
+            background: radial-gradient(125% 125% at 50% 10%, #000 40%, var(--color-primary-500) 100%);
+            z-index: 1;
+        }
+
+        .noise-overlay::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='6' seed='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 150px 150px;
+            opacity: 0.25;
+            backdrop-filter: blur(6px);
+        }        .hero {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: calc(var(--spacing) * 8);
+            text-align: center;
+        }
+
+        .projects {
+            position: relative;
+            z-index: 10;
+            padding: calc(var(--spacing) * 16) calc(var(--spacing) * 8);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .projects h2 {
+            font-family: "Inter", sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: calc(var(--spacing) * 8);
+            text-align: center;
+            color: white;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: calc(var(--spacing) * 6);
+            margin-bottom: calc(var(--spacing) * 12);
+        }
+
+        .project-card {
+            background: color-mix(in oklch, white 6%, transparent);
+            backdrop-filter: blur(20px) saturate(120%);
+            border: 1px solid color-mix(in oklch, white 8%, transparent);
+            border-radius: calc(var(--spacing) * 4);
+            padding: calc(var(--spacing) * 6);
+            transition: all var(--duration-normal) var(--ease-out);
+        }
+
+        .project-card:hover {
+            transform: translateY(-2px);
+            background: color-mix(in oklch, white 8%, transparent);
+        }
+
+        .project-title {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--color-primary-400);
+            margin-bottom: calc(var(--spacing) * 2);
+        }
+
+        .project-desc {
+            font-family: "Inter", sans-serif;
+            font-size: 0.9rem;
+            color: color-mix(in oklch, white 80%, transparent);
+            line-height: 1.5;
+            margin-bottom: calc(var(--spacing) * 3);
+        }
+
+        .project-tech {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.75rem;
+            color: color-mix(in oklch, white 60%, transparent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .glass {
+            background: color-mix(in oklch, white 8%, transparent);
+            backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid color-mix(in oklch, white 12%, transparent);
+            box-shadow: var(--shadow-glass);
+            border-radius: calc(var(--spacing) * 6);
+            padding: calc(var(--spacing) * 12);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .hacker-text {
+            font-family: "JetBrains Mono", monospace;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--color-primary-400);
+            margin-bottom: calc(var(--spacing) * 4);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .title {
+            font-family: "Inter", sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: calc(var(--spacing) * 4);
+            background: linear-gradient(135deg, 
+                color-mix(in oklch, white 100%, transparent),
+                color-mix(in oklch, white 70%, transparent)
+            );
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: color-mix(in oklch, white 80%, transparent);
+            margin-bottom: calc(var(--spacing) * 8);
+            line-height: 1.5;
+        }
+
+        .description {
+            font-family: "Inter", sans-serif;
+            font-size: 1rem;
+            color: color-mix(in oklch, white 85%, transparent);
+            margin-bottom: calc(var(--spacing) * 10);
+            line-height: 1.6;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: calc(var(--spacing) * 4) calc(var(--spacing) * 8);
+            font-family: "Inter", sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(135deg, 
+                var(--color-primary-500),
+                var(--color-primary-600)
+            );
+            border: 1px solid color-mix(in oklch, var(--color-primary-400) 50%, transparent);
+            border-radius: calc(var(--spacing) * 3);
+            box-shadow: 
+                0 1px 3px rgba(0, 0, 0, 0.12),
+                0 8px 24px color-mix(in oklch, var(--color-primary-500) 20%, transparent);
+            transition: all var(--duration-normal) var(--ease-out);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.15),
+                0 12px 32px color-mix(in oklch, var(--color-primary-500) 30%, transparent);
+        }        .footer {
+            position: relative;
+            padding: calc(var(--spacing) * 12) calc(var(--spacing) * 8);
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.8rem;
+            color: color-mix(in oklch, white 60%, transparent);
+            z-index: 10;
+            text-align: center;
+        }
+
+        .tech-stack {
+            position: relative;
+            z-index: 10;
+            padding: calc(var(--spacing) * 12) calc(var(--spacing) * 8);
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .tech-stack h2 {
+            font-family: "Inter", sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: calc(var(--spacing) * 6);
+            color: white;
+        }
+
+        .tech-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: calc(var(--spacing) * 4);
+            margin-bottom: calc(var(--spacing) * 8);
+        }
+
+        .tech-category {
+            background: color-mix(in oklch, white 4%, transparent);
+            backdrop-filter: blur(16px) saturate(100%);
+            border: 1px solid color-mix(in oklch, white 6%, transparent);
+            border-radius: calc(var(--spacing) * 3);
+            padding: calc(var(--spacing) * 4);
+        }
+
+        .tech-category h3 {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-primary-400);
+            margin-bottom: calc(var(--spacing) * 2);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tech-list {
+            font-family: "Inter", sans-serif;
+            font-size: 0.85rem;
+            color: color-mix(in oklch, white 75%, transparent);
+            line-height: 1.4;
+        }@media (max-width: 768px) {
+            .hero {
+                padding: calc(var(--spacing) * 4);
+            }
+
+            .glass {
+                padding: calc(var(--spacing) * 8);
+            }
+
+            .title {
+                font-size: 2.2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .description {
+                font-size: 0.9rem;
+            }
+
+            .projects {
+                padding: calc(var(--spacing) * 8) calc(var(--spacing) * 4);
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .hacker-text {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .glass {
+            animation: fadeIn 1s var(--ease-out) forwards;
+        }
+
+        .footer {
+            animation: fadeIn 1.5s var(--ease-out) forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Overlay com efeito de ruído e gradiente de fundo -->
+    <div class="noise-overlay"></div>
+    
+    <!-- Seção Hero - Apresentação principal -->
+    <div class="hero">
+        <div class="glass">
+            <div class="hacker-text">$ whoami</div>
+            <h1 class="title">Christopher Costa</h1>
+            <p class="subtitle">Full Stack Developer</p>
+            <p class="description">
+                Desenvolvedor em formação com foco em soluções web modernas e arquitetura robusta. 
+                Experiência prática em desenvolvimento full-stack com Node.js, React, TypeScript e PostgreSQL.
+            </p>
+            <a href="https://christophercosta.vercel.app/" class="btn-primary" target="_blank" rel="noopener noreferrer">
+                Visite o Portfolio →
+            </a>
+        </div>
+    </div>
+
+    <!-- Seção de Projetos - Principais trabalhos desenvolvidos -->
+    <div class="projects">
+        <h2>Principais Projetos</h2>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-title">🚗 Sistema de Locadora</div>
+                <div class="project-desc">API RESTful completa para sistema de locadora de carros com autenticação JWT e arquitetura em camadas</div>
+                <div class="project-tech">Node.js • TypeScript • PostgreSQL • Prisma</div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-title">🏦 Diverse Landing Page</div>
+                <div class="project-desc">Landing page para fintech inclusiva com interface moderna e animações fluidas</div>
+                <div class="project-tech">Next.js • TypeScript • Tailwind CSS • Framer Motion</div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-title">💼 Portfolio Pessoal</div>
+                <div class="project-desc">Portfolio moderno com design glassmorphism e componentes interativos</div>
+                <div class="project-tech">React • TypeScript • Tailwind CSS v4 • Vite</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Seção de Stack Tecnológica - Tecnologias e ferramentas -->
+    <div class="tech-stack">
+        <h2>Stack Tecnológica</h2>
+        <div class="tech-categories">
+            <div class="tech-category">
+                <h3>Backend</h3>
+                <div class="tech-list">Node.js • Express • PostgreSQL • Prisma • JWT • Docker</div>
+            </div>
+            
+            <div class="tech-category">
+                <h3>Frontend</h3>
+                <div class="tech-list">React • TypeScript • Next.js • Tailwind CSS • Framer Motion • Vite</div>
+            </div>
+            
+            <div class="tech-category">
+                <h3>Deploy & Tools</h3>
+                <div class="tech-list">Vercel • Git • GitHub • VS Code • Figma • Postman</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé - Informações de contato e direitos autorais -->
+    <div class="footer">
+        <span>© 2024 Christopher Costa | christopher.silva4@fatec.sp.gov.br</span>
+    </div>
+</body>
+</html>
