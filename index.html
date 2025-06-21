@@ -42,17 +42,23 @@
 
         .noise-overlay {
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             opacity: 0.5;
             pointer-events: none;
-            background: radial-gradient(125% 125% at 50% 10%, #000 40%, var(--color-primary-500) 100%);
+            background: radial-gradient(125% 125% at 50% 10vh, #000 40%, var(--color-primary-500) 100%);
             z-index: 1;
         }
 
         .noise-overlay::before {
             content: '';
             position: absolute;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='6' seed='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
             background-repeat: repeat;
             background-size: 150px 150px;
@@ -141,9 +147,7 @@
             padding: calc(var(--spacing) * 12);
             max-width: 600px;
             width: 100%;
-        }
-
-        .hacker-text {
+        }        .hacker-text {
             font-family: "JetBrains Mono", monospace;
             font-weight: 500;
             font-size: 0.9rem;
@@ -151,6 +155,65 @@
             margin-bottom: calc(var(--spacing) * 4);
             letter-spacing: 0.1em;
             text-transform: uppercase;
+        }
+
+        .terminal {
+            font-family: "JetBrains Mono", monospace;
+            background: color-mix(in oklch, black 80%, transparent);
+            border: 1px solid color-mix(in oklch, var(--color-primary-400) 30%, transparent);
+            border-radius: calc(var(--spacing) * 2);
+            padding: calc(var(--spacing) * 4);
+            margin-bottom: calc(var(--spacing) * 6);
+            font-size: 0.9rem;
+            max-width: 400px;
+            text-align: left;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: calc(var(--spacing) * 3);
+            color: color-mix(in oklch, white 60%, transparent);
+            font-size: 0.8rem;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: calc(var(--spacing) * 1);
+            margin-right: calc(var(--spacing) * 3);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27ca3f; }
+
+        .terminal-line {
+            margin-bottom: calc(var(--spacing) * 1);
+            color: white;
+        }
+
+        .terminal-prompt {
+            color: var(--color-primary-400);
+        }
+
+        .terminal-output {
+            color: color-mix(in oklch, white 90%, transparent);
+        }
+
+        .typing-cursor {
+            animation: blink 1s infinite;
+            color: var(--color-primary-400);
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
 
         .title {
@@ -317,10 +380,37 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }        .glass {
+            animation: fadeIn 1s var(--ease-out) forwards;
         }
 
-        .glass {
-            animation: fadeIn 1s var(--ease-out) forwards;
+        .project-card {
+            opacity: 0;
+            animation: slideInUp 0.8s var(--ease-out) forwards;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .tech-category {
+            opacity: 0;
+            animation: slideInUp 0.6s var(--ease-out) forwards;
+        }
+
+        .tech-category:nth-child(1) { animation-delay: 0.1s; }
+        .tech-category:nth-child(2) { animation-delay: 0.2s; }
+        .tech-category:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .footer {
@@ -334,59 +424,54 @@
     
     <!-- Seção Hero - Apresentação principal -->
     <div class="hero">
-        <div class="glass">
-            <div class="hacker-text">$ whoami</div>
-            <h1 class="title">Christopher Costa</h1>
-            <p class="subtitle">Full Stack Developer</p>
-            <p class="description">
-                Desenvolvedor em formação com foco em soluções web modernas e arquitetura robusta. 
+        <div class="glass" style="box-shadow: 0 12px 48px -12px rgba(0,0,0,0.35); padding: 3.5rem 2.5rem; max-width: 540px;">
+            <h1 class="title" style="font-size:2.6rem; margin-bottom:1.2rem;">Christopher Costa</h1>
+            <p class="subtitle" style="font-size:1.2rem; color:var(--color-primary-400); margin-bottom:1.5rem;">Full Stack Developer</p>
+            <p class="description" style="font-size:1.05rem; color:color-mix(in oklch, white 90%, transparent); margin-bottom:2.2rem;">
+                Desenvolvedor em formação com foco em soluções web modernas e arquitetura robusta.<br>
                 Experiência prática em desenvolvimento full-stack com Node.js, React, TypeScript e PostgreSQL.
             </p>
-            <a href="https://christophercosta.vercel.app/" class="btn-primary" target="_blank" rel="noopener noreferrer">
-                Visite o Portfolio →
+            <a href="https://christophercosta.vercel.app/" class="btn-primary" target="_blank" rel="noopener noreferrer" style="font-size:1.1rem; padding:0.9rem 2.2rem; border-radius:1.8rem; letter-spacing:0.03em;">
+                Ver Portfolio →
             </a>
         </div>
     </div>
 
     <!-- Seção de Projetos - Principais trabalhos desenvolvidos -->
-    <div class="projects">
-        <h2>Principais Projetos</h2>
+    <div class="projects" style="margin-top:2rem;">
+        <h2 style="font-size:1.7rem; color:var(--color-primary-400); margin-bottom:2.5rem;">Principais Projetos</h2>
         <div class="project-grid">
-            <div class="project-card">
+            <div class="project-card" style="border-radius:1.5rem;">
                 <div class="project-title">🚗 Sistema de Locadora</div>
-                <div class="project-desc">API RESTful completa para sistema de locadora de carros com autenticação JWT e arquitetura em camadas</div>
+                <div class="project-desc">API RESTful para locadora de carros com autenticação JWT e arquitetura em camadas.</div>
                 <div class="project-tech">Node.js • TypeScript • PostgreSQL • Prisma</div>
             </div>
-            
-            <div class="project-card">
+            <div class="project-card" style="border-radius:1.5rem;">
                 <div class="project-title">🏦 Diverse Landing Page</div>
-                <div class="project-desc">Landing page para fintech inclusiva com interface moderna e animações fluidas</div>
+                <div class="project-desc">Landing page para fintech inclusiva com interface moderna e animações fluidas.</div>
                 <div class="project-tech">Next.js • TypeScript • Tailwind CSS • Framer Motion</div>
             </div>
-            
-            <div class="project-card">
+            <div class="project-card" style="border-radius:1.5rem;">
                 <div class="project-title">💼 Portfolio Pessoal</div>
-                <div class="project-desc">Portfolio moderno com design glassmorphism e componentes interativos</div>
+                <div class="project-desc">Portfolio moderno com design glassmorphism e componentes interativos.</div>
                 <div class="project-tech">React • TypeScript • Tailwind CSS v4 • Vite</div>
             </div>
         </div>
     </div>
 
     <!-- Seção de Stack Tecnológica - Tecnologias e ferramentas -->
-    <div class="tech-stack">
-        <h2>Stack Tecnológica</h2>
+    <div class="tech-stack" style="margin-top:2.5rem;">
+        <h2 style="font-size:1.3rem; color:var(--color-primary-400); margin-bottom:2rem;">Stack Tecnológica</h2>
         <div class="tech-categories">
-            <div class="tech-category">
+            <div class="tech-category" style="border-radius:1.2rem;">
                 <h3>Backend</h3>
                 <div class="tech-list">Node.js • Express • PostgreSQL • Prisma • JWT • Docker</div>
             </div>
-            
-            <div class="tech-category">
+            <div class="tech-category" style="border-radius:1.2rem;">
                 <h3>Frontend</h3>
                 <div class="tech-list">React • TypeScript • Next.js • Tailwind CSS • Framer Motion • Vite</div>
             </div>
-            
-            <div class="tech-category">
+            <div class="tech-category" style="border-radius:1.2rem;">
                 <h3>Deploy & Tools</h3>
                 <div class="tech-list">Vercel • Git • GitHub • VS Code • Figma • Postman</div>
             </div>
@@ -394,8 +479,8 @@
     </div>
 
     <!-- Rodapé - Informações de contato e direitos autorais -->
-    <div class="footer">
-        <span>© 2024 Christopher Costa | christopher.silva4@fatec.sp.gov.br</span>
+    <div class="footer" style="margin-top:2.5rem;">
+        <span>© 2025 Christopher Costa | christopher.silva4@fatec.sp.gov.br</span>
     </div>
 </body>
 </html>
