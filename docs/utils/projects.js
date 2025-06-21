@@ -1,11 +1,9 @@
-// utils/projects.js
-
 export const projects = [
 	{
 		id: "car-rental-backend",
 		title: "Sistema de Locadora - Backend",
 		description:
-			"API completa desenvolvida com Node.js, TypeScript e PostgreSQL. Sistema robusto com autenticação JWT, upload de imagens, validações com Zod e arquitetura em camadas seguindo princípios SOLID e Clean Architecture.",
+			"API completa desenvolvida com Node.js, TypeScript e PostgreSQL.",
 		technologies: [
 			"Node.js",
 			"TypeScript",
@@ -22,7 +20,7 @@ export const projects = [
 		id: "car-rental-frontend",
 		title: "Sistema de Locadora - Frontend",
 		description:
-			"Interface moderna construída com React, TypeScript e Tailwind CSS. Painel administrativo completo para gerenciamento de frota, com sistema de upload de imagens e interface responsiva.",
+			"Interface moderna construída com React, TypeScript e Tailwind CSS.",
 		technologies: [
 			"React",
 			"TypeScript",
@@ -36,8 +34,7 @@ export const projects = [
 	{
 		id: "diverse-landing",
 		title: "Diverse Landing Page",
-		description:
-			"Landing page moderna para fintech que valoriza diversidade, construída com Next.js e TypeScript. Interface responsiva com animações fluidas, formulários integrados e foco em inclusão financeira.",
+		description: "Landing page moderna para fintech que valoriza diversidade.",
 		technologies: [
 			"Next.js",
 			"TypeScript",
@@ -50,3 +47,16 @@ export const projects = [
 		imageUrl: "imgs/diverse-landing.png",
 	},
 ];
+
+export const stack = {
+	backend: ["Node.js", "Express", "PostgreSQL", "Prisma", "JWT", "Docker"],
+	frontend: [
+		"React",
+		"TypeScript",
+		"Next.js",
+		"Tailwind CSS",
+		"Framer Motion",
+		"Vite",
+	],
+	tools: ["Vercel", "Git", "GitHub", "VS Code", "Figma", "Postman"],
+};
